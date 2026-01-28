@@ -4,7 +4,7 @@ description: "기업들의 비즈니스 모델과 재무 분석"
 author: "영진"
 email: "ceo.youngandrich@gmail.com"
 
-# URL 설정 (GitHub username으로 변경 필요)
+# URL 설정
 baseurl: "/research"
 url: "https://realyoungk.github.io"
 
@@ -15,62 +15,14 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# 카테고리 (시장별) — _posts 대신 컬렉션 사용 (날짜 없는 파일명)
-collections:
-  kospi:
-    output: true
-    permalink: /kospi/:title/
-  kosdaq:
-    output: true
-    permalink: /kosdaq/:title/
-  nasdaq:
-    output: true
-    permalink: /nasdaq/:title/
-  nyse:
-    output: true
-    permalink: /nyse/:title/
-  hkex:
-    output: true
-    permalink: /hkex/:title/
-  general:
-    output: true
-    permalink: /general/:title/
+# 포스트 설정
+permalink: /:categories/:title/
 
 # 기본값
 defaults:
   - scope:
       path: ""
-      type: "kospi"
-    values:
-      layout: "post"
-      author: "영진"
-  - scope:
-      path: ""
-      type: "kosdaq"
-    values:
-      layout: "post"
-      author: "영진"
-  - scope:
-      path: ""
-      type: "nasdaq"
-    values:
-      layout: "post"
-      author: "영진"
-  - scope:
-      path: ""
-      type: "nyse"
-    values:
-      layout: "post"
-      author: "영진"
-  - scope:
-      path: ""
-      type: "hkex"
-    values:
-      layout: "post"
-      author: "영진"
-  - scope:
-      path: ""
-      type: "general"
+      type: "posts"
     values:
       layout: "post"
       author: "영진"

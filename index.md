@@ -42,41 +42,19 @@ title: 홈
   </a>
 </div>
 
-<div class="recent-posts">
-  <h2>최신 분석</h2>
-  {% assign all_posts = "" | split: "" %}
-  {% assign all_posts = all_posts | concat: site.kospi %}
-  {% assign all_posts = all_posts | concat: site.kosdaq %}
-  {% assign all_posts = all_posts | concat: site.nasdaq %}
-  {% assign all_posts = all_posts | concat: site.nyse %}
-  {% assign all_posts = all_posts | concat: site.hkex %}
-  {% assign all_posts = all_posts | concat: site.general %}
-
-  {% assign sorted_posts = all_posts | sort: "updatedAt" | reverse %}
-
-  {% if sorted_posts.size > 0 %}
-  <ul class="post-list">
-    {% for post in sorted_posts limit:10 %}
-    <li>
-      <a href="{{ post.url | relative_url }}">
-        <h3>{{ post.title }}</h3>
-      </a>
-      {% if post.tags.size > 0 %}
-      <div class="post-tags">
-        {% for tag in post.tags %}
-        <span class="tag">{{ tag }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-      {% if post.updatedAt %}
-      <span class="post-date">{{ post.updatedAt }}</span>
-      {% elsif post.createdAt %}
-      <span class="post-date">{{ post.createdAt }}</span>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="empty-notice">아직 작성된 분석이 없습니다. 첫 번째 분석을 작성해보세요!</p>
-  {% endif %}
-</div>
+<h2>최신 분석</h2>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {% for post in site.posts limit:10 %}
+  <li>
+    <a href="{{ post.url | relative_url }}"><h3>{{ post.title }}</h3></a>
+    {% if post.tags.size > 0 %}
+    <div class="post-tags">{% for tag in post.tags %}<span class="tag">{{ tag }}</span> {% endfor %}</div>
+    {% endif %}
+    <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty-notice">아직 작성된 분석이 없습니다.</p>
+{% endif %}

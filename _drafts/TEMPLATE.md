@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "[회사명/Company Name] 기업 분석"
-createdAt: YYYY-MM-DD
-updatedAt: YYYY-MM-DD
+date: YYYY-MM-DD
+categories: kospi
 tags: [sector, theme]
 tickers: [TICKER]
 ---
