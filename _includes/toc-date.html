@@ -24,9 +24,6 @@
         <div id="book-search-input" role="search">
             <input type="text" placeholder="Type to search" />
         </div>
-        <div id="book-search-input-link" role="search">
-            <a href="{{site.baseurl}}/assets/search.html">Click to Search</a>
-        </div>
         <ul class="summary">
             {% if page.url == "/index.html" or page.url == "/" %}
             <li class="chapter active" data-level="1.1" data-path="{{site.baseurl}}">
@@ -40,44 +37,11 @@
 
             <li class="divider"></li>
 
-            {% comment %} 카테고리별 그룹핑 {% endcomment %}
             {% assign all_posts = site.posts | reverse %}
-            {% assign categories_order = "kospi,kosdaq,nasdaq,nyse,hkex,general" | split: "," %}
-            {% assign category_labels = "KOSPI,KOSDAQ,NASDAQ,NYSE,HKEX,일반 분석" | split: "," %}
+            {% if all_posts.size > 0 %}
+                <li class="header">기업분석</li>
 
-            {% for cat in categories_order %}
-                {% assign cat_index = forloop.index0 %}
-                {% assign cat_posts = all_posts | where_exp: "post", "post.categories contains cat" %}
-
-                {% if cat_posts.size > 0 %}
-                    <li class="header">{{ category_labels[cat_index] }}</li>
-
-                    {% for post in cat_posts %}
-                        {% if page.url == post.url %}
-                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                        {% else %}
-                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                        {% endif %}
-                            <a href="{{site.baseurl}}{{post.url}}" onclick="pageScrollToTop(this)">
-                                {{ post.title | escape }}
-                            </a>
-                            {% if site.toc.enabled %}
-                                {% if page.url == post.url %}
-                                    {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
-                                {% endif %}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-
-                    <li class="divider"></li>
-                {% endif %}
-            {% endfor %}
-
-            {% comment %} 카테고리 없는 포스트 {% endcomment %}
-            {% assign uncategorized = all_posts | where_exp: "post", "post.categories.size == 0" %}
-            {% if uncategorized.size > 0 %}
-                <li class="header">기타</li>
-                {% for post in uncategorized %}
+                {% for post in all_posts %}
                     {% if page.url == post.url %}
                     <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                     {% else %}
@@ -93,22 +57,9 @@
                         {% endif %}
                     </li>
                 {% endfor %}
+
                 <li class="divider"></li>
             {% endif %}
-
-            {% comment %} 페이지 (소개 등) {% endcomment %}
-            {% assign pages = site.pages | where_exp: "p", "p.layout == 'page'" %}
-            {% for p in pages %}
-                {% if page.url == p.url %}
-                <li class="chapter active" data-level="1.1" data-path="{{site.baseurl}}{{p.url}}">
-                {% else %}
-                <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{p.url}}">
-                {% endif %}
-                    <a href="{{site.baseurl}}{{p.url}}" onclick="pageScrollToTop(this)">
-                        {{ p.title | escape }}
-                    </a>
-                </li>
-            {% endfor %}
         </ul>
     </nav>
 </div>
