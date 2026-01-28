@@ -6,7 +6,7 @@ email: "ceo.youngandrich@gmail.com"
 
 # URL 설정 (GitHub username으로 변경 필요)
 baseurl: "/research"
-url: "https://mobyceo.github.io"
+url: "https://realyoungk.github.io"
 
 # 빌드 설정
 markdown: kramdown
