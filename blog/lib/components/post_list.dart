@@ -13,8 +13,8 @@ class PostList extends StatelessComponent {
         .where((page) => page.url.startsWith('/posts/'))
         .toList()
       ..sort((a, b) {
-        final dateA = a.data['date']?.toString() ?? '';
-        final dateB = b.data['date']?.toString() ?? '';
+        final dateA = a.data.page['date']?.toString() ?? '';
+        final dateB = b.data.page['date']?.toString() ?? '';
         return dateB.compareTo(dateA);
       });
 
@@ -31,12 +31,13 @@ class PostList extends StatelessComponent {
   }
 
   Component _buildPostItem(Page post) {
-    final title = post.data['title'] as String? ?? 'Untitled';
-    final description = post.data['description'] as String? ?? '';
-    final market = post.data['market'] as String? ?? '';
-    final sector = post.data['sector'] as String? ?? '';
-    final date = post.data['date']?.toString() ?? '';
-    final tags = post.data['tags'] as List<dynamic>? ?? [];
+    final pageData = post.data.page;
+    final title = pageData['title'] as String? ?? 'Untitled';
+    final description = pageData['description'] as String? ?? '';
+    final market = pageData['market'] as String? ?? '';
+    final sector = pageData['sector'] as String? ?? '';
+    final date = pageData['date']?.toString() ?? '';
+    final tags = pageData['tags'] as List<dynamic>? ?? [];
 
     return article(classes: 'post-item', [
       div(classes: 'post-header', [
