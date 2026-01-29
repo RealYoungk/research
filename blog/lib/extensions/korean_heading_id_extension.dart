@@ -1,15 +1,7 @@
 import 'package:jaspr_content/jaspr_content.dart';
 
-/// Extension that fixes heading IDs for Korean text.
+/// Extension that fixes heading IDs for Korean text and smooth anchor scrolling.
 /// Must be applied BEFORE HeadingAnchorsExtension and TableOfContentsExtension.
-///
-/// The Dart markdown package's generateAnchorHash strips all non-ASCII characters,
-/// so Korean headings like "기본 정보", "주요 사업", "핵심 파이프라인" all get the
-/// same id="-". This breaks TOC navigation.
-///
-/// This extension walks all heading elements (h1-h6) and replaces their id attribute
-/// with a unique, sequential slug based on the heading text. For Korean-only text,
-/// it uses a counter-based ID like "section-1", "section-2", etc.
 class KoreanHeadingIdExtension implements PageExtension {
   const KoreanHeadingIdExtension();
 
@@ -18,7 +10,31 @@ class KoreanHeadingIdExtension implements PageExtension {
   @override
   Future<List<Node>> apply(Page page, List<Node> nodes) async {
     final usedIds = <String>{};
-    return _processNodes(nodes, usedIds);
+    final processed = _processNodes(nodes, usedIds);
+    // Inject client-side script that intercepts TOC anchor clicks
+    // to use smooth scrolling instead of full page navigation
+    return [
+      ElementNode('script', {}, [
+        TextNode(
+          'document.addEventListener("click",function(e){'
+          'var a=e.target.closest(".toc a[href*=\'#\']");'
+          'if(!a)return;'
+          'var h=a.getAttribute("href");'
+          'var i=h.indexOf("#");'
+          'if(i<0)return;'
+          'var id=decodeURIComponent(h.substring(i+1));'
+          'var el=document.getElementById(id);'
+          'if(el){'
+          'e.preventDefault();'
+          'el.scrollIntoView({behavior:"smooth"});'
+          'history.replaceState(null,null,h.substring(i));'
+          '}'
+          '});',
+          raw: true,
+        ),
+      ]),
+      ...processed,
+    ];
   }
 
   List<Node> _processNodes(List<Node> nodes, Set<String> usedIds) {
