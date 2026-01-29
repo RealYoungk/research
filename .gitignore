@@ -22,3 +22,12 @@ Thumbs.db
 # Temp
 *.log
 *.tmp
+
+# FVM Version Cache
+.fvm/
+
+# Dart
+.dart_tool/
+.packages
+build/
+pubspec.lock
