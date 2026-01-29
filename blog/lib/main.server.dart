@@ -90,7 +90,7 @@ void main() {
                 ],
               ),
               SidebarGroup(
-                title: '분석 글',
+                title: '기업분석',
                 links: [
                   SidebarLink(text: "큐라클", href: '/posts/365270'),
                 ],

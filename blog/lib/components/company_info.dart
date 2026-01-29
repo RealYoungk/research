@@ -22,7 +22,6 @@ class CompanyInfo extends StatelessComponent {
       return div([]);
     }
 
-    final name = company['name'] as String? ?? '';
     final nameEn = company['nameEn'] as String? ?? '';
     final ticker = company['ticker'] as String? ?? '';
     final industry = company['industry'] as String? ?? '';
@@ -34,21 +33,16 @@ class CompanyInfo extends StatelessComponent {
     return div([
       Style(styles: _styles),
       div(classes: 'company-info-card', [
-        // Header section
-        div(classes: 'company-header', [
-          h2(classes: 'company-name', [
-            Component.text(name),
-            if (nameEn.isNotEmpty)
-              span(classes: 'company-name-en', [Component.text(' ($nameEn)')]),
-          ]),
-          div(classes: 'company-badges', [
-            if (ticker.isNotEmpty)
-              span(classes: 'badge badge-ticker', [Component.text(ticker)]),
-            if (market != null && market.isNotEmpty)
-              span(classes: 'badge badge-market', [Component.text(market.toUpperCase())]),
-            if (industry.isNotEmpty)
-              span(classes: 'badge badge-industry', [Component.text(industry)]),
-          ]),
+        // Badges
+        div(classes: 'company-badges', [
+          if (ticker.isNotEmpty)
+            span(classes: 'badge badge-ticker', [Component.text(ticker)]),
+          if (market != null && market.isNotEmpty)
+            span(classes: 'badge badge-market', [Component.text(market.toUpperCase())]),
+          if (industry.isNotEmpty)
+            span(classes: 'badge badge-industry', [Component.text(industry)]),
+          if (nameEn.isNotEmpty)
+            span(classes: 'badge badge-name-en', [Component.text(nameEn)]),
         ]),
         // Info table
         div(classes: 'company-details', [
@@ -82,24 +76,7 @@ class CompanyInfo extends StatelessComponent {
         padding: Padding.all(1.5.rem),
         backgroundColor: Color('#ffffff'),
         raw: {'box-shadow': '0 1px 3px rgba(0, 0, 0, 0.1)'},
-        margin: Margin.only(bottom: 2.rem),
-      ),
-    ]),
-    css('.company-header', [
-      css('&').styles(
-        padding: Padding.only(bottom: 1.rem),
-        border: Border.only(bottom: BorderSide(width: 1.px, color: Color('#e2e8f0'))),
-        margin: Margin.only(bottom: 1.rem),
-      ),
-      css('.company-name').styles(
-        margin: Margin.only(bottom: 0.75.rem),
-        fontSize: 1.5.rem,
-        fontWeight: FontWeight.bold,
-      ),
-      css('.company-name-en').styles(
-        fontWeight: FontWeight.normal,
-        opacity: 0.7,
-        fontSize: 1.2.rem,
+        margin: Margin.only(bottom: 1.25.rem),
       ),
     ]),
     css('.company-badges', [
@@ -107,8 +84,14 @@ class CompanyInfo extends StatelessComponent {
         display: Display.flex,
         flexWrap: FlexWrap.wrap,
         raw: {'gap': '0.5rem'},
+        margin: Margin.only(bottom: 1.rem),
       ),
     ]),
+    css('.badge-name-en').styles(
+      backgroundColor: Color('#f8fafc'),
+      color: Color('#64748b'),
+      fontWeight: FontWeight.normal,
+    ),
     css('.badge').styles(
       display: Display.inlineBlock,
       padding: Padding.symmetric(vertical: 0.25.rem, horizontal: 0.75.rem),
