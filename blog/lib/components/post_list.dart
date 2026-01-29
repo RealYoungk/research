@@ -39,11 +39,9 @@ class PostList extends StatelessComponent {
     final date = pageData['date']?.toString() ?? '';
     final tags = pageData['tags'] as List<dynamic>? ?? [];
 
-    return article(classes: 'post-item', [
+    return a(href: post.url, classes: 'post-item', [
       div(classes: 'post-header', [
-        h3([
-          a(href: post.url, [Component.text(title)]),
-        ]),
+        h3([Component.text(title)]),
         span(classes: 'post-date', [Component.text(date)]),
       ]),
       if (description.isNotEmpty)
@@ -66,12 +64,16 @@ class PostList extends StatelessComponent {
         flexDirection: FlexDirection.column,
         raw: {'gap': '1.5rem'},
       ),
-      css('.post-item', [
+      css('a.post-item', [
         css('&').styles(
+          display: Display.block,
           padding: Padding.all(1.25.rem),
           border: Border.all(width: 1.px, color: Color('#e2e8f0')),
           radius: BorderRadius.circular(8.px),
+          textDecoration: TextDecoration.none,
+          color: Color.inherit,
           transition: Transition('border-color', duration: Duration(milliseconds: 200)),
+          raw: {'cursor': 'pointer'},
         ),
         css('&:hover').styles(
           border: Border.all(width: 1.px, color: Color('#3b82f6')),
@@ -85,8 +87,6 @@ class PostList extends StatelessComponent {
           raw: {'gap': '1rem'},
         ),
         css('h3').styles(margin: Margin.zero, fontSize: 1.2.rem),
-        css('h3 a').styles(textDecoration: TextDecoration.none, color: Color.inherit),
-        css('h3 a:hover').styles(color: Color('#3b82f6')),
       ]),
       css('.post-date').styles(
         fontSize: 0.85.rem,
