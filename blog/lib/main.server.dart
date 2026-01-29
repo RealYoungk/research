@@ -58,7 +58,7 @@ void main() {
         DocsLayout(
           header: Header(
             title: '기업 분석 노트',
-            logo: '/images/logo.svg',
+            logo: '/research/images/logo.svg',
             items: [
               ThemeToggle(),
             ],
@@ -67,19 +67,19 @@ void main() {
             groups: [
               SidebarGroup(
                 links: [
-                  SidebarLink(text: "홈", href: '/'),
+                  SidebarLink(text: "홈", href: '/research/'),
                 ],
               ),
               SidebarGroup(
                 title: '분석 글',
                 links: [
-                  SidebarLink(text: "큐라클", href: '/posts/큐라클'),
+                  SidebarLink(text: "큐라클", href: '/research/posts/큐라클'),
                 ],
               ),
               SidebarGroup(
                 title: '기타',
                 links: [
-                  SidebarLink(text: "소개", href: '/about'),
+                  SidebarLink(text: "소개", href: '/research/about'),
                 ],
               ),
             ],

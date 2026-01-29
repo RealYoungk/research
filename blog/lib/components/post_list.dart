@@ -42,7 +42,7 @@ class PostList extends StatelessComponent {
     return article(classes: 'post-item', [
       div(classes: 'post-header', [
         h3([
-          a(href: post.url, [Component.text(title)]),
+          a(href: '/research${post.url}', [Component.text(title)]),
         ]),
         span(classes: 'post-date', [Component.text(date)]),
       ]),
