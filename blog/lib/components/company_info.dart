@@ -69,6 +69,7 @@ class CompanyInfo extends StatelessComponent {
   }
 
   static List<StyleRule> get _styles => [
+    // Light mode
     css('.company-info-card', [
       css('&').styles(
         border: Border.all(width: 1.px, color: Color('#e2e8f0')),
@@ -137,5 +138,33 @@ class CompanyInfo extends StatelessComponent {
         fontSize: 0.95.rem,
       ),
     ]),
+    // Dark mode overrides
+    css('[data-theme="dark"] .company-info-card').styles(
+      backgroundColor: Color('#1e293b'),
+      border: Border.all(width: 1.px, color: Color('#334155')),
+      raw: {'box-shadow': '0 1px 3px rgba(0, 0, 0, 0.3)'},
+    ),
+    css('[data-theme="dark"] .badge-ticker').styles(
+      backgroundColor: Color('#422006'),
+      color: Color('#fbbf24'),
+    ),
+    css('[data-theme="dark"] .badge-market').styles(
+      backgroundColor: Color('#172554'),
+      color: Color('#60a5fa'),
+    ),
+    css('[data-theme="dark"] .badge-industry').styles(
+      backgroundColor: Color('#3b0764'),
+      color: Color('#c084fc'),
+    ),
+    css('[data-theme="dark"] .badge-name-en').styles(
+      backgroundColor: Color('#1e293b'),
+      color: Color('#94a3b8'),
+    ),
+    css('[data-theme="dark"] .detail-label').styles(
+      color: Color('#94a3b8'),
+    ),
+    css('[data-theme="dark"] .detail-value').styles(
+      color: Color('#e2e8f0'),
+    ),
   ];
 }
